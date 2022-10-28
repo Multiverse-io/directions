@@ -1,0 +1,33 @@
+          page_path  GET     /                                      ShopWeb.PageController :index
+          user_path  GET     /users                                 ShopWeb.UserController :index
+          user_path  GET     /users/:id/edit                        ShopWeb.UserController :edit
+          user_path  GET     /users/new                             ShopWeb.UserController :new
+          user_path  GET     /users/:id                             ShopWeb.UserController :show
+          user_path  POST    /users                                 ShopWeb.UserController :create
+          user_path  PATCH   /users/:id                             ShopWeb.UserController :update
+                     PUT     /users/:id                             ShopWeb.UserController :update
+          user_path  DELETE  /users/:id                             ShopWeb.UserController :delete
+       product_path  GET     /products                              ShopWeb.ProductController :index
+       product_path  GET     /products/:id/edit                     ShopWeb.ProductController :edit
+       product_path  GET     /products/new                          ShopWeb.ProductController :new
+       product_path  GET     /products/:id                          ShopWeb.ProductController :show
+       product_path  POST    /products                              ShopWeb.ProductController :create
+       product_path  PATCH   /products/:id                          ShopWeb.ProductController :update
+                     PUT     /products/:id                          ShopWeb.ProductController :update
+       product_path  DELETE  /products/:id                          ShopWeb.ProductController :delete
+    categories_path  GET     /categories                            ShopWeb.CategoriesController :index
+    categories_path  GET     /categories/:id/edit                   ShopWeb.CategoriesController :edit
+    categories_path  GET     /categories/new                        ShopWeb.CategoriesController :new
+    categories_path  GET     /categories/:id                        ShopWeb.CategoriesController :show
+    categories_path  POST    /categories                            ShopWeb.CategoriesController :create
+    categories_path  PATCH   /categories/:id                        ShopWeb.CategoriesController :update
+                     PUT     /categories/:id                        ShopWeb.CategoriesController :update
+    categories_path  DELETE  /categories/:id                        ShopWeb.CategoriesController :delete
+live_dashboard_path  GET     /dashboard                             Phoenix.LiveDashboard.PageLive :home
+live_dashboard_path  GET     /dashboard/:page                       Phoenix.LiveDashboard.PageLive :page
+live_dashboard_path  GET     /dashboard/:node/:page                 Phoenix.LiveDashboard.PageLive :page
+                     *       /dev/mailbox                           Plug.Swoosh.MailboxPreview []
+          websocket  WS      /live/websocket                        Phoenix.LiveView.Socket
+           longpoll  GET     /live/longpoll                         Phoenix.LiveView.Socket
+           longpoll  POST    /live/longpoll                         Phoenix.LiveView.Socket
+
