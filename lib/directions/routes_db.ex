@@ -13,6 +13,10 @@ defmodule Directions.RoutesDB do
     GenServer.call(__MODULE__, :groups)
   end
 
+  def group(group_name) do
+    groups()[group_name]
+  end
+
   def store(routes, group_name, base_url) do
     GenServer.call(__MODULE__, {:store, {routes, group_name, base_url}})
   end

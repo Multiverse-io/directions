@@ -11,7 +11,7 @@ defmodule Directions.RoutesDbTest do
         "http://my.app"
       )
 
-      assert RoutesDB.groups()[:my_app] == %{
+      assert RoutesDB.group(:my_app) == %{
                base_url: "http://my.app",
                routes: [%{"path_pattern" => "/foobar", "route_name" => "foo_bar_path"}]
              }
