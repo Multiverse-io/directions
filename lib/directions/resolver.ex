@@ -5,8 +5,8 @@ defmodule Directions.Resolver do
     route =
       group.routes
       |> Enum.find(fn entry ->
-        entry["route_name"] == route_name
+        entry.route_name == route_name
       end)
-    "#{group.base_url}#{route["path_pattern"]}"
+    "#{group.base_url}#{route.path_pattern}"
   end
 end
