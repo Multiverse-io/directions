@@ -1,6 +1,8 @@
 defmodule Directions.RoutesDB do
   use GenServer
 
+  alias Directions.RouteGroup
+
   def start_link(_opts \\ []) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
@@ -26,7 +28,9 @@ defmodule Directions.RoutesDB do
   end
 
   def handle_call({:store, {routes, group_name, base_url}}, _from, state) do
-    updated_state = Map.put(state, group_name, %{routes: routes, base_url: base_url})
+    updated_state =
+      Map.put(state, group_name, %RouteGroup{name: group_name, routes: routes, base_url: base_url})
+
     {:reply, :ok, updated_state}
   end
 end
