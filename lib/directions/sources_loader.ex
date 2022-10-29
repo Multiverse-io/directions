@@ -16,11 +16,11 @@ defmodule Directions.SourcesLoader do
               contents
               |> RoutesFileParser.parse()
               |> RoutesDB.store(name, base_url)
+
               {:cont, [item | acc]}
 
             {:error, :enoent} ->
-              {:halt, {:error, :file_not_found,  item}}
-
+              {:halt, {:error, :file_not_found, item}}
           end
 
         invalid_config ->

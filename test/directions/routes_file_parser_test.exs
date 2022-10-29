@@ -10,13 +10,14 @@ defmodule Directions.RoutesFileParserTest do
 
     routes = RoutesFileParser.parse(contents)
 
-    assert length(routes) == 13
+    assert length(routes) == 16
 
     assert %Route{
              action: ":index",
              controller: "ShopWeb.PageController",
              path_pattern: "/",
-             route_name: "page_path"
+             route_name: "page_path",
+             path_params: []
            } == List.first(routes)
 
     Enum.each(routes, fn route ->

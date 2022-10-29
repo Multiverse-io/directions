@@ -1,12 +1,11 @@
 defmodule Directions.Resolver do
-  def url(group, route_name, bindings \\ []) do
+  alias Directions.{Route, RouteGroup}
+
+  def url(group, route_name, path_params \\ []) do
     route_name = Atom.to_string(route_name)
 
-    route =
-      group.routes
-      |> Enum.find(fn entry ->
-        entry.route_name == route_name
-      end)
-    "#{group.base_url}#{route.path_pattern}"
+    route = RouteGroup.find_route(group, route_name, path_params)
+
+    "#{group.base_url}#{Route.apply_path_params(route, path_params)}"
   end
 end

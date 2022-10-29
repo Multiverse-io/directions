@@ -1,7 +1,7 @@
 defmodule Directions.RoutesDB do
   use GenServer
 
-  alias Directions.RouteGroup
+  alias Directions.{Route, RouteGroup}
 
   def start_link(_opts \\ []) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -28,9 +28,25 @@ defmodule Directions.RoutesDB do
   end
 
   def handle_call({:store, {routes, group_name, base_url}}, _from, state) do
+    routes = keyed_routes(routes)
+
     updated_state =
       Map.put(state, group_name, %RouteGroup{name: group_name, routes: routes, base_url: base_url})
 
     {:reply, :ok, updated_state}
+  end
+
+  defp keyed_routes(routes) when is_list(routes) do
+    routes
+    |> Enum.reduce(%{}, fn route, acc ->
+      Map.put(acc, key_for(route), route)
+    end)
+  end
+
+  defp key_for(%Route{} = route) do
+    route.path_params
+    |> Enum.reduce(route.route_name, fn path_param, acc ->
+      acc <> path_param
+    end)
   end
 end

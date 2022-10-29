@@ -9,8 +9,16 @@ defmodule Directions.SourcesLoaderTest do
 
       assert %{
                base_url: "http://shop_1.com",
-               routes: [_head | _tail]
+               routes: %{}
              } = RoutesDB.groups()[:shop_1]
+
+      routes_count =
+        RoutesDB.groups()[:shop_1]
+        |> Map.get(:routes)
+        |> Map.keys()
+        |> length()
+
+      assert routes_count == 10
     end
   end
 
@@ -28,8 +36,16 @@ defmodule Directions.SourcesLoaderTest do
 
       assert %{
                base_url: "http://shop_1.com",
-               routes: [_head | _tail]
+               routes: %{}
              } = RoutesDB.groups()[:shop_1]
+
+      routes_count =
+        RoutesDB.groups()[:shop_1]
+        |> Map.get(:routes)
+        |> Map.keys()
+        |> length()
+
+      assert routes_count == 10
     end
 
     test "fails if one of the entries does not contain the group name" do
@@ -48,8 +64,7 @@ defmodule Directions.SourcesLoaderTest do
       source_config_1 =
         {:shop_1, "http://shop_1.com", Path.expand("../support/shop_routes_1.txt", __DIR__)}
 
-      source_config_2 =
-        {:shop_2, Path.expand("../support/shop_routes_2.txt", __DIR__)}
+      source_config_2 = {:shop_2, Path.expand("../support/shop_routes_2.txt", __DIR__)}
 
       config = [source_config_1, source_config_2]
 
@@ -60,8 +75,7 @@ defmodule Directions.SourcesLoaderTest do
       source_config_1 =
         {:shop_1, "http://shop_1.com", Path.expand("../support/shop_routes_1.txt", __DIR__)}
 
-      source_config_2 =
-        {:shop_2, "http://shop_2.com"}
+      source_config_2 = {:shop_2, "http://shop_2.com"}
 
       config = [source_config_1, source_config_2]
 
