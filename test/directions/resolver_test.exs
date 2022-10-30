@@ -36,5 +36,19 @@ defmodule Directions.ResolverTest do
       assert Resolver.url(group, search_term) ==
                "http://shop_1.com/dashboard/fizz/foobar"
     end
+
+    test "returns the correct URL if path params are provided out of order" do
+      group = RoutesDB.group(:shop_1)
+
+      search_term = %SearchTerm{
+        group_name: :shop_1,
+        route_name: :live_dashboard_path,
+        action: :page,
+        path_params: [node: "fizz", page: "foobar"]
+      }
+
+      assert Resolver.url(group, search_term) ==
+               "http://shop_1.com/dashboard/fizz/foobar"
+    end
   end
 end

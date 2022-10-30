@@ -1,7 +1,7 @@
 defmodule Directions.RoutesDB do
   use GenServer
 
-  alias Directions.{Route, RouteGroup}
+  alias Directions.{Route, RoutesDB, RouteGroup}
 
   def start_link(_opts \\ []) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -39,15 +39,7 @@ defmodule Directions.RoutesDB do
   defp keyed_routes(routes) when is_list(routes) do
     routes
     |> Enum.reduce(%{}, fn route, acc ->
-      Map.put(acc, key_for(route), route)
-    end)
-  end
-
-  defp key_for(%Route{} = route) do
-    route.path_params
-    |> Enum.sort()
-    |> Enum.reduce("#{route.route_name}#{route.action}", fn path_param, acc ->
-      acc <> path_param
+      Map.put(acc, RoutesDB.Key.key_for(route), route)
     end)
   end
 end
