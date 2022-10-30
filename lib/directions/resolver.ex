@@ -1,4 +1,5 @@
 defmodule Directions.Resolver do
+  @moduledoc false
   alias Directions.{Route, RouteGroup}
 
   def url(group, search_term) do

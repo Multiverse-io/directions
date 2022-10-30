@@ -1,4 +1,5 @@
 defmodule Directions.RoutesFileParser do
+  @moduledoc false
   @route_regex ~r/\A\s*(?<route_name>[^\s]+)\s+GET\s+(?<path_pattern>[^\s]+)\s+(?<controller>[^\s]+)\s+(?<action>[^\s]+)\z/
 
   alias Directions.Route

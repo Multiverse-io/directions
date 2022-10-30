@@ -1,4 +1,5 @@
 defmodule Directions.Application do
+  @moduledoc false
   use Application
 
   alias Directions.SourcesLoader

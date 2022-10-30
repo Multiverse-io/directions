@@ -1,4 +1,6 @@
 defmodule Directions.RoutesDB.Key do
+  @moduledoc false
+
   alias Directions.{Route, SearchTerm}
 
   def key_for(%SearchTerm{} = search_term) do

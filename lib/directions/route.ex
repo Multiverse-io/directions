@@ -1,4 +1,6 @@
 defmodule Directions.Route do
+  @moduledoc false
+  @doc false
   @keys [:route_name, :path_pattern, :controller, :action, :path_params]
   @enforce_keys @keys
   defstruct @keys

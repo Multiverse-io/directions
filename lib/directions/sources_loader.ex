@@ -1,4 +1,5 @@
 defmodule Directions.SourcesLoader do
+  @moduledoc false
   alias Directions.{RoutesFileParser, RoutesDB}
 
   def load do
