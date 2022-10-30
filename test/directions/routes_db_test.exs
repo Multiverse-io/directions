@@ -20,10 +20,10 @@ defmodule Directions.RoutesDbTest do
       )
 
       assert RoutesDB.group(:my_app) == %RouteGroup{
-        name: :my_app,
-        base_url: "http://my.app",
-        routes: %{"foo_bar_path" => route }
-      }
+               name: :my_app,
+               base_url: "http://my.app",
+               routes: %{"foo_bar_pathbar" => route}
+             }
     end
   end
 end

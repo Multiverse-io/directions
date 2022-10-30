@@ -18,7 +18,7 @@ defmodule Directions.SourcesLoaderTest do
         |> Map.keys()
         |> length()
 
-      assert routes_count == 10
+      assert routes_count == 16
     end
   end
 
@@ -45,7 +45,7 @@ defmodule Directions.SourcesLoaderTest do
         |> Map.keys()
         |> length()
 
-      assert routes_count == 10
+      assert routes_count == 16
     end
 
     test "fails if one of the entries does not contain the group name" do

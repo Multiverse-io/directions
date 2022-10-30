@@ -1,7 +1,7 @@
 defmodule Directions.ResolverTest do
   use ExUnit.Case, async: true
 
-  alias Directions.{Resolver, RoutesDB, SourcesLoader}
+  alias Directions.{Resolver, RoutesDB, SearchTerm, SourcesLoader}
 
   setup_all do
     SourcesLoader.load()
@@ -10,16 +10,31 @@ defmodule Directions.ResolverTest do
   end
 
   describe "run/3" do
-    test "when given a valid group and route name, returns a URL" do
+    test "when given a valid group, route name and action, returns a URL" do
       group = RoutesDB.group(:shop_1)
-      assert Resolver.url(group, :product_path) == "http://shop_1.com/products/new"
+
+      search_term = %SearchTerm{
+        group_name: :shop_1,
+        route_name: :product_path,
+        action: :new,
+        path_params: []
+      }
+
+      assert Resolver.url(group, search_term) == "http://shop_1.com/products/new"
     end
 
-    test "when given a valid group, route name and binding parameters returns a URL" do
+    test "when given a valid group, route name, action and path parameters returns a URL" do
       group = RoutesDB.group(:shop_1)
 
-      assert Resolver.url(group, :live_dashboard_path, page: "foobar") ==
-               "http://shop_1.com/dashboard/foobar"
+      search_term = %SearchTerm{
+        group_name: :shop_1,
+        route_name: :live_dashboard_path,
+        action: :page,
+        path_params: [page: "foobar", node: "fizz"]
+      }
+
+      assert Resolver.url(group, search_term) ==
+               "http://shop_1.com/dashboard/fizz/foobar"
     end
   end
 end

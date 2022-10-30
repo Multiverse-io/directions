@@ -45,7 +45,8 @@ defmodule Directions.RoutesDB do
 
   defp key_for(%Route{} = route) do
     route.path_params
-    |> Enum.reduce(route.route_name, fn path_param, acc ->
+    |> Enum.sort()
+    |> Enum.reduce("#{route.route_name}#{route.action}", fn path_param, acc ->
       acc <> path_param
     end)
   end
