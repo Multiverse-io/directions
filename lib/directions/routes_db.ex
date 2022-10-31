@@ -1,7 +1,7 @@
 defmodule Directions.RoutesDB do
   use GenServer
 
-  alias Directions.{Route, RoutesDB, RouteGroup}
+  alias Directions.{RoutesDB, RouteGroup}
 
   def start_link(_opts \\ []) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
