@@ -24,6 +24,7 @@ defmodule Directions do
   # => "http:shop.com/products/123/edit"
   ```
   """
+  @spec url(group_name :: atom(), route_name :: atom(), action :: atom(), path_params :: keyword()) :: String.t()
   def url(group_name, route_name, action, path_params \\ []) do
     search_term = %SearchTerm{
       group_name: group_name,
