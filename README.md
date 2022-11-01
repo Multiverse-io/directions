@@ -1,6 +1,7 @@
 # Directions
 
 [![Build Status](https://github.com/Multiverse-io/directions/actions/workflows/ci.yml/badge.svg)](https://github.com/Multiverse-io/directions/actions)
+[![Hex.pm](https://img.shields.io/hexpm/v/directions.svg)](https://hex.pm/packages/directions)
 
 Directions is a small Elixir library aimed at generating URLs that point to a Phoenix application.
 
