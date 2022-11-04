@@ -1,5 +1,8 @@
 defmodule Directions.SearchTerm do
-  @moduledoc false
+  @moduledoc """
+  Represents a routes search
+  """
+
   @keys [:group_name, :route_name, :action, :path_params]
   @enforce_keys @keys
   defstruct @keys

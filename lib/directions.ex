@@ -24,6 +24,24 @@ defmodule Directions do
 
   alias Directions.{Resolver, RoutesDB, SearchTerm}
 
+  defmodule GroupNotFoundError do
+    defexception [:message]
+
+    @impl true
+    def exception(group_name) do
+      %__MODULE__{message: "Could not find a routes group named #{group_name}"}
+    end
+  end
+
+  defmodule RouteNotFoundError do
+    defexception [:message]
+
+    @impl true
+    def exception(search_term) do
+      %__MODULE__{message: "Could not find a route with the provided search terms: #{inspect(search_term)}"}
+    end
+  end
+
   @doc """
   Generates a URL
 
@@ -46,7 +64,7 @@ defmodule Directions do
         Directions.url(:shop, :product_path, :edit, id: 123)
         # => "http:shop.com/products/123/edit"
   """
-  @spec url(group_name :: atom(), route_name :: atom(), action :: atom(), path_params :: keyword()) :: String.t()
+  @spec url(group_name :: atom(), route_name :: atom(), action :: atom(), path_params :: keyword()) :: {:ok, String.t()} | {:error, atom(), %Directions.SearchTerm{}}
   def url(group_name, route_name, action, path_params \\ []) do
     search_term = %SearchTerm{
       group_name: group_name,
@@ -57,6 +75,23 @@ defmodule Directions do
 
     group = RoutesDB.group(group_name)
 
-    Resolver.url(group, search_term)
+    if group do
+      Resolver.url(group, search_term)
+    else
+      {:error, :routes_group_not_found, search_term}
+    end
+  end
+
+  @doc """
+  Similar to Directions.url/4 but returns the generated URL or raises an error if there's no group with
+  that name or if a route can't be found with the provided arguments.
+  """
+  @spec url!(group_name :: atom(), route_name :: atom(), action :: atom(), path_params :: keyword()) :: String.t()
+  def url!(group_name, route_name, action, path_params \\ []) do
+    case url(group_name, route_name, action, path_params) do
+      {:ok, url} -> url
+      {:error, :routes_group_not_found, %SearchTerm{}} -> raise GroupNotFoundError, group_name
+      {:error, :route_not_found, search_term} -> raise RouteNotFoundError, search_term
+    end
   end
 end
